@@ -34,6 +34,10 @@ export const createProduct = async (req, res) => {
       stock,
       seller: req.user.userId,
     });
+
+    console.log('Creating product:', product);
+
+    
     await product.save();
     res.status(201).json(product);
   } catch (error) {
