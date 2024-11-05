@@ -41,3 +41,55 @@ export const createProduct = async (req, res) => {
   }
 };
 
+// Update product
+export const updateProduct = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const product = await Product.findOne({ _id: id, seller: req.user.userId });
+    
+    if (!product) {
+      return res.status(404).json({ message: 'Product not found or unauthorized' });
+    }
+
+    Object.assign(product, req.body);
+    await product.save();
+    res.json(product);
+  } catch (error) {
+    res.status(500).json({ message: 'Error updating product', error: error.message });
+  }
+};
+
+// Delete product
+export const deleteProduct = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const product = await Product.findOneAndDelete({ _id: id, seller: req.user.userId });
+    
+    if (!product) {
+      return res.status(404).json({ message: 'Product not found or unauthorized' });
+    }
+
+    res.json({ message: 'Product deleted successfully' });
+  } catch (error) {
+    res.status(500).json({ message: 'Error deleting product', error: error.message });
+  }
+};
+
+// Toggle product visibility
+export const toggleHidden = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const product = await Product.findOne({ _id: id, seller: req.user.userId });
+    
+    if (!product) {
+      return res.status(404).json({ message: 'Product not found or unauthorized' });
+    }
+
+    product.hidden = !product.hidden;
+    await product.save();
+    res.json(product);
+  } catch (error) {
+    res.status(500).json({ message: 'Error toggling product visibility', error: error.message });
+  }
+};
+
