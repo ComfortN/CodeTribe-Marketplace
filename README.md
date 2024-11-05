@@ -1,4 +1,4 @@
-## frontend# CodeTribe Market
+# CodeTribe Market
 
 CodeTribe Market is a full-stack e-commerce platform specializing in handcrafted jewelry. The platform allows users to browse products, manage their shopping cart, and for sellers to list their unique creations.
 
@@ -102,3 +102,10 @@ JWT_SECRET=your_jwt_secret
 ```bash
 npm run dev
 ```
+
+
+## Deployed link
+
+- https://code-tribe-marketplace-nu.vercel.app/
+
+- https://code-tribe-marketplace-backend.vercel.app/
