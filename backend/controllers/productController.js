@@ -78,7 +78,7 @@ export const deleteProduct = async (req, res) => {
 // Toggle product visibility
 export const toggleHidden = async (req, res) => {
   try {
-    const { id } = req.params;
+    const { id} = req.params;
     const product = await Product.findOne({ _id: id, seller: req.user.userId });
     
     if (!product) {
