@@ -9,17 +9,23 @@ export const authenticateUser = (req, res, next) => {
     }
 
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    req.user = decoded;
+    console.log('Decoded token:', decoded);
+    req.user = {
+      userId: decoded.id,
+      role: decoded.role
+    };
+    console.log('req.user:', req.user);
     next();
   } catch (error) {
+    console.error('Auth error:', error); 
     res.status(401).json({ message: 'Invalid token' });
   }
 };
 
 export const isAdmin = (req, res, next) => {
   if (req.user.role !== 'admin') {
-    console.log('check')
-    return res.status(200).json({ message: 'Admin access required' });
+    console.log('check', req.user.role, req.user)
+    return res.status(403).json({ message: 'Admin access required' });
   }
   next();
 };
